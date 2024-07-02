@@ -12,14 +12,18 @@
         font-size: 180px;
         color: white;
 }
+#msg{
+    font-size: 180px;
+    color: white;
+    display: none;
+}
 </style>
 </head>
 <body id="tm" >
     <br/><br/><br/><br/><br/><br/>
-    <table align="center">
+    <table >
         <tr>
-            <td >   </td>
-            <td id="msg" style="display: none;">Time's Over</td>
+            <td id="msg" style="display: none; color: white;">Time's Over</td>
         </tr>    
     </table>
 <table border="1" align="center" >
@@ -34,41 +38,47 @@
         <td><input type="text" id="sec" value="0" style="color: white;"></td>
     </tr>
     <tr>
-        <td colspan="3" align="center"><button type="submit" onclick="start()" style="color: white;" back>Click Here!!</button></td>
+        <td colspan="3" align="center"><button type="submit" onclick="start()" style="color: white;">Click Here!!</button></td>
     </tr>
 </table>
-</body>
 <script>
     var ref=0;
     var h=0;
     var m=0;
     var s=0;        
     function cDown(){
+        if(s>0)
+        {
             s--;
-            if(s<=0){
-                m--;
-                if(m>0) s=59;
-            }
-            if(m<=0)
-            {
-                h--;
-                if(h>0) m=59;
-            }
-            if(s<=0 && m<=0 && h<=0)
-            {
+        }
+        else if(m>0)
+        {
+            m--;
+            s=59;
+        }
+        else if(h>0)
+        {
+            h--;
+            m=59;
+            s=59;
+        }
+        else{
                 clearInterval(ref);
                 document.getElementById("tm").style.display="none";
                 document.getElementById("msg").style.display="block";
             }
-
-            var t=((s<10) ? h+" : "+m+" : "+"0"+s :((m<10) ? h+" : "+"0"+m+" : "+s :((h<10) ? "0"+h+" : "+m+" : "+s:h+" : "+m+" : "+s))); 
+            
+            var t=(h<10 ? "0"+h :h)+" : "+(m<10 ? "0"+m:m)+" : "+(s<10 ? "0"+s:s);  
             document.getElementById("tm").innerHTML=t;
         }
-            function start(){
+        function start(){
             h=parseInt(document.getElementById("h").value);
             m=parseInt(document.getElementById("min").value);
             s=parseInt(document.getElementById("sec").value);
+            clearInterval(ref);
             ref=setInterval("cDown()",1000);
         }
+        
         </script>
+        </body>
 </html>
