@@ -1,0 +1,74 @@
+<html>
+<head>
+    <title>Count Down</title>
+<style>
+    *{
+        background-color:black;
+    }
+    #tm{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 220px;
+        color: white;
+}
+</style>
+</head>
+<body id="tm" >
+    <br/><br/><br/><br/><br/><br/>
+    <table align="center">
+        <tr>
+            <td >   </td>
+            <td id="msg" style="display: none;">Time's Over</td>
+        </tr>    
+    </table>
+<table border="1" align="center" >
+    <tr>
+        <th style="color: white;">Enter Hours</th>
+        <th style="color: white;">Enter Minutes</th>
+        <th style="color: white;">Enter Seconds</th>
+    </tr>
+    <tr>
+        <td><input type="text" id="h" value="0" style="color: white;"></td>
+        <td><input type="text" id="min" value="0" style="color: white;"></td>
+        <td><input type="text" id="sec" value="0" style="color: white;"></td>
+    </tr>
+    <tr>
+        <td colspan="3" align="center"><button type="submit" onclick="start()" style="color: white;" back>Click Here!!</button></td>
+    </tr>
+</table>
+</body>
+<script>
+    var ref=0;
+    var h=0;
+    var m=0;
+    var s=0;        
+    function cDown(){
+            s--;
+            if(s<=0){
+                m--;
+                if(m>0) s=59;
+            }
+            if(m<=0)
+            {
+                h--;
+                if(h>0) m=59;
+            }
+            if(s<=0 && m<=0 && h<=0)
+            {
+                clearInterval(ref);
+                document.getElementById("tm").style.display="none";
+                document.getElementById("msg").style.display="block";
+            }
+
+            var t=((s<10) ? h+" : "+m+" : "+"0"+s :((m<10) ? h+" : "+"0"+m+" : "+s :((h<10) ? "0"+h+" : "+m+" : "+s:h+" : "+m+" : "+s))); 
+            document.getElementById("tm").innerHTML=t;
+        }
+            function start(){
+            h=parseInt(document.getElementById("h").value);
+            m=parseInt(document.getElementById("min").value);
+            s=parseInt(document.getElementById("sec").value);
+            ref=setInterval("cDown()",1000);
+        }
+        </script>
+</html>
